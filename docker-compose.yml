@@ -7,10 +7,37 @@ services:
             - "5000:5000"
         environment:
             - REDIS_URL=redis://redis:6379
+            - DATABASE_URL=mysql://flaskapp:password@mysql/flaskdb  # Updated with MySQL connection URL
         depends_on:
             - redis
+            - mysql  # Ensure MySQL service is started before the Flask app
+        networks:
+            - mynetwork
 
     redis:
         image: "redis:alpine"
         ports:
             - "6379:6379"
+        networks:
+            - mynetwork
+
+    mysql:
+        image: "mysql:5.7" 
+        environment:
+            MYSQL_ROOT_PASSWORD: cloudcomputing 
+            MYSQL_DATABASE: cloud
+            MYSQL_USER: EddyKubwimana 
+            MYSQL_PASSWORD: password
+        ports:
+            - "3306:3306"  
+        volumes:
+            - mysql-data:/var/lib/mysql  
+        networks:
+            - mynetwork
+
+volumes:
+    mysql-data:  
+
+networks:
+    mynetwork:
+        driver: bridge
