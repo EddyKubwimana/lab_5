@@ -59,7 +59,7 @@
         </div>
 
         <div class="form-container">
-            <h2>Visitor Details</h2>
+            <h2>Add yourself </h2>
             <form id="visitorForm">
                 <div class="form-group">
                     <label for="firstname">First Name:</label>
@@ -77,7 +77,7 @@
         </div>
 
         <div class="people-container">
-            <h2>People List</h2>
+            <h2>Recent Visitors</h2>
             <table>
                 <thead>
                     <tr>
@@ -124,6 +124,8 @@
         const peopleList = document.getElementById('people-list');
         peopleList.innerHTML = '';  
 
+
+        console.log(data.people);
         
         if (data.people && data.people.length > 0) {
             data.people.forEach(person => {
