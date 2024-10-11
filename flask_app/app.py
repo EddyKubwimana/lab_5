@@ -33,6 +33,8 @@ def home():
     cursor = conn.cursor(dictionary=True) 
     cursor.execute('SELECT * FROM people ORDER BY registration_time DESC')
     people_data = cursor.fetchall()
+    print("People data : ", people_data)
+    print("Count ", count)
     cursor.close()
     conn.close()
 
