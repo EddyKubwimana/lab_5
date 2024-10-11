@@ -30,14 +30,124 @@
             font-size: 3rem;
             color: #333;
         }
+
+        .form-container, .people-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .form-container h2, .people-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: grey;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: grey;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .message {
+            color: grey;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container text-center">
         <div class="card p-5">
-            <h1>Eddy Kubwimana</h1>
-            <p class="lead mt-4">  This page has been visited <strong>{{ count }}</strong> times.</p>
+            <h1>Welcome</h1>
+            <p class="lead mt-4"> Total Number of Visits  <strong>{{ count }}</strong> times.</p>
         </div>
+        <div class="form-container">
+            <h2>Simple Form</h2>
+            <form action="/submit" method="POST">
+                <div class="form-group">
+                    <label for="firstname">First Name:</label>
+                    <input type="text" id="firstname" name="firstname" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last Name:</label>
+                    <input type="text" id="lastname" name="lastname" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+    
+            {% if message %}
+            <p class="message">{{ message }}</p>
+            {% endif %}
+        </div>
+    
+        <div class="people-container">
+            <h2>People List</h2>
+            {% if people %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Registered On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for person in people %}
+                    <tr>
+                        <td>{{ person.firstname }}</td>
+                        <td>{{ person.lastname }}</td>
+                        <td>{{ person.registration_time }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No visitor yet registered.</p>
+            {% endif %}
+        </div>
+
+        
+
+
+
+        
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
