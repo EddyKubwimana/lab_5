@@ -102,12 +102,12 @@
     <script>
         
         document.getElementById('visitorForm').addEventListener('submit', function(event) {
-    event.preventDefault();  // Prevent the default form submission
+    event.preventDefault();  
 
     const firstname = document.getElementById('firstname').value;
     const lastname = document.getElementById('lastname').value;
 
-    // Send the form data via AJAX
+    
     fetch('/submit', {
         method: 'POST',
         headers: {
@@ -117,18 +117,21 @@
     })
     .then(response => response.json())
     .then(data => {
-        // Display the success message
+       
         document.getElementById('message').textContent = data.message;
 
-        // Update the people list
+        
         const peopleList = document.getElementById('people-list');
-        peopleList.innerHTML = '';  // Clear the list
+        peopleList.innerHTML = '';  
 
-        // Ensure the data.people array exists and is populated
+        
         if (data.people && data.people.length > 0) {
             data.people.forEach(personArray => {
                 const row = document.createElement('tr');
-                // Use the index of the array to access each value (ID, firstname, lastname, registration_time)
+
+                console.log(personArray[1],personArray[2],personArray[3] );
+
+                
                 row.innerHTML = `
                     <td>${personArray[1]}</td>  <!-- First Name -->
                     <td>${personArray[2]}</td>  <!-- Last Name -->
@@ -137,16 +140,14 @@
                 peopleList.appendChild(row);
             });
         } else {
-            // If there's no data, show an empty state or default message
+            
             const emptyRow = document.createElement('tr');
             emptyRow.innerHTML = '<td colspan="3">No people found</td>';
             peopleList.appendChild(emptyRow);
         }
 
-        // Update the visit count
         document.getElementById('visit-count').textContent = data.count;
 
-        // Clear the form fields
         document.getElementById('firstname').value = '';
         document.getElementById('lastname').value = '';
     })
